@@ -1,0 +1,33 @@
+:root {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+
+#info {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+#machine {
+    margin: 0 auto;
+    width: fit-content;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#input {
+    font-size: large;
+    width: 100%;
+    resize: none;
+}
+
+#run {
+    margin: 0 auto;
+}
+
+#input_display {
+    font-family: 'Courier New', Courier, monospace;
+    border: 1px black solid;
+    font-weight: bold;
+}
