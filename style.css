@@ -31,3 +31,36 @@
     border: 1px black solid;
     font-weight: bold;
 }
+
+#type-machine label {
+    font-weight: bold;
+}
+
+#type-machine fieldset {
+    border: none;
+}
+
+#type-machine {
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#code-input {
+    resize: none;
+    width: 700px;
+    height: 300px;
+    background-color: beige;
+}
+
+#upload-area {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+#open-file {
+    width: 100px;
+}
+
