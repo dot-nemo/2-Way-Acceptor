@@ -3,6 +3,16 @@ const textArea = document.querySelector('#code-input');
 
 const format = document.querySelector('#format');
 
+
+let machine_val = {
+    states: [],
+    inputs: [],
+    transitions: [],
+    start_state: "",
+    accept_state: "",
+    reject_state: ""
+}
+
 submitBtn?.addEventListener('click', (e) => {
     e.preventDefault();
     console.log("clicked submit btn");
@@ -12,11 +22,56 @@ submitBtn?.addEventListener('click', (e) => {
 
     let lines = text.split('\n');
     const machine_values = []
-    for(let i = 0;i < lines.length; i++){
-        machine_values.push(lines[i]);
+    
+    const numStates = parseInt(lines[0]);
+    const states = lines[1].split(' ');
+
+    for(let i = 0; i < numStates; i++) {
+        machine_val.states.push(states[i]);
     }
 
-    console.log(machine_values)
+    const numInputs = parseInt(lines[2]);
+    const inputs = lines[3].split(' ');
+
+    for(let i = 0; i < numInputs; i++) {
+        machine_val.inputs.push(inputs[i]);
+    }
+
+    const numTransitions = parseInt(lines[4]);
+    for (i = 0; i < numTransitions; i++) {
+        machine_val.transitions.push(lines[i + 5]); // adjust to sep values
+    }
+
+    machine_val.start_state = lines[numTransitions + 5];
+    machine_val.accept_state = lines[numTransitions + 6];
+    machine_val.reject_state = lines[numTransitions + 7];
+
+    
+    format.innerHTML = `Number of States: ${numStates} <br>
+                        States: <br>`;
+
+    for (let i = 0; i < numStates; i++) {
+        format.innerHTML += `${machine_val.states[i]} <br>`
+    }
+
+    format.innerHTML += `<br>Number of inputs: ${numInputs} <br>
+                        Inputs: <br>`;
+    for (let i = 0; i < numStates; i++) {
+        format.innerHTML += `${machine_val.inputs[i]} <br>`
+    }
+                
+    format.innerHTML += `<br>Number of Transitions: ${numTransitions} <br>`;
+    
+    for (let i = 0; i < numTransitions; i++) {
+        format.innerHTML += `${machine_val.transitions[i]} <br>`
+    }
+
+    format.innerHTML += `<br>Start State: ${machine_val.start_state} <br>
+                        Accept State: ${machine_val.accept_state} <br>
+                        Reject State: ${machine_val.reject_state} <br>`
+
+    console.log(machine_values);
+    
 });
 
 textArea?.addEventListener('keyup', (e) => {
@@ -27,18 +82,7 @@ textArea?.addEventListener('keyup', (e) => {
         format.innerHTML = "";
     } else {
         format.innerHTML = `Fix Format: <br>
-                            2 <b>/* number of states */</b> <br> 
-                            A B <b>/* list of states*/</b><br> 
-                            2 <b>/* number of inputs */</b> <br> 
-                            0 1 <b>/* list of inputs */</b> <br> 
-                            4 <b>/* number of transitions */</b><br> 
-                            A 0 R <b>/* transitions in the format (place transiiton format here) */</b> <br> 
-                            A 1 L <b>/* such that f(q,s) = q' (edit idk for 2dfa) */</b> <br> 
-                            B 0 L  (edit idk for 2dfa)<br> 
-                            B 1 R   (edit idk for 2dfa)<br> 
-                            A <b>/* start state */ </b><br> 
-                            1 <b>/* accept state  */</b> <br> 
-                            B <b>/* reject state */</b>`
+                            copy format here`
     }
 });
 
