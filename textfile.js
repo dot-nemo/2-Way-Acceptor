@@ -56,7 +56,7 @@ submitBtn?.addEventListener('click', (e) => {
 
     format.innerHTML += `<br>Number of inputs: ${numInputs} <br>
                         Inputs: <br>`;
-    for (let i = 0; i < numStates; i++) {
+    for (let i = 0; i < numInputs; i++) {
         format.innerHTML += `${machine_val.inputs[i]} <br>`
     }
                 
