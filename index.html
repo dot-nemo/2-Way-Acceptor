@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Two-Way DFA Sim</title>
     <link rel="stylesheet" href="style.css">
-    <script src="machine.js"></script>
-    <script src="textfile.js"></script>
+    <script src="machine.js" defer></script>
+    <script src="textfile.js" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
             initialiseImportTextFieldPanel("myFile", "code-input")
@@ -30,11 +30,13 @@
     </div>
 
     <div id="type-machine">
-        <form id="write-machine" name="write-machine">
+        <form id="writemachine" name="writemachine">
             <fieldset>
                 <label for="code-input">Input Machine Program</label>
                 <br>
-                <textarea name="code-input" id="code-input"></textarea>
+                <textarea name="code-input" id="code-input" style="white-space: pre-wrap;" 
+                placeholder="fix format&#10;2 /* number of states */ &#10;A B /* list of states*/ &#10;2 /* number of inputs */ &#10;0 1 /* list of inputs */ &#10;4 /* number of transitions */ &#10;A 0 A /* transitions in the format q s q' */ &#10;A 1 B /* such that f(q,s) = q' */ &#10;B 0 A &#10;B 1 B &#10;A /* start state */&#10;1 /* number of final states */&#10;B /* list of final states */"></textarea>
+                <br><input type="submit" id="submit"/>
             </fieldset>
         </form>
 
@@ -43,10 +45,12 @@
             <form id="upload-machine" name="upload-machine">
                 <input accept=".txt" type="file" id="myFile" name="filename"/>
                 <br><br>
-                <input type="submit"/>
             </form>
+
+            <div id="format">
+            </div>
         </div>
+
     </div>
-    <!---- Add txt file submit option---->
 </body>
 </html>
