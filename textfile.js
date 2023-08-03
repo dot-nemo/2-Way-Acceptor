@@ -3,17 +3,17 @@ const textArea = document.querySelector('#code-input');
 
 const format = document.querySelector('#format');
 
-
 let machine_val = {
     states: [],
     inputs: [],
     transitions: [],
     start_state: "",
-    accept_state: "",
-    reject_state: ""
+    accept_states: ""
 }
 
 submitBtn?.addEventListener('click', (e) => {
+    q = [];
+    F = [];
     e.preventDefault();
     console.log("clicked submit btn");
 
@@ -21,8 +21,7 @@ submitBtn?.addEventListener('click', (e) => {
     console.log(text);
 
     let lines = text.split('\n');
-    const machine_values = []
-    
+
     const numStates = parseInt(lines[0]);
     const states = lines[1].split(' ');
 
@@ -43,10 +42,10 @@ submitBtn?.addEventListener('click', (e) => {
     }
 
     machine_val.start_state = lines[numTransitions + 5];
-    machine_val.accept_state = lines[numTransitions + 6];
-    machine_val.reject_state = lines[numTransitions + 7];
+    machine_val.accept_states = lines[numTransitions + 6];
 
-    
+
+
     format.innerHTML = `Number of States: ${numStates} <br>
                         States: <br>`;
 
@@ -59,19 +58,59 @@ submitBtn?.addEventListener('click', (e) => {
     for (let i = 0; i < numInputs; i++) {
         format.innerHTML += `${machine_val.inputs[i]} <br>`
     }
-                
+
     format.innerHTML += `<br>Number of Transitions: ${numTransitions} <br>`;
-    
+
     for (let i = 0; i < numTransitions; i++) {
         format.innerHTML += `${machine_val.transitions[i]} <br>`
     }
 
     format.innerHTML += `<br>Start State: ${machine_val.start_state} <br>
-                        Accept State: ${machine_val.accept_state} <br>
-                        Reject State: ${machine_val.reject_state} <br>`
+                        Accept States: ${machine_val.accept_states} <br>`;
 
-    console.log(machine_values);
-    
+    q = [];
+    F = [];
+    machine_val.states.forEach(state => {
+        console.log(q.push(new State(state)));
+    });
+
+    console.log(machine_val.transitions);
+    machine_val.transitions.forEach(transition => {
+        const spl = transition.split(' ');
+        const from = spl[0];
+        const read = spl[1];
+        const to   = spl[2];
+        const dir  = spl[3];
+        for (let index = 0; index < states.length; index++) {
+            const state = states[index];
+            if (state == from) {
+                for (let i = 0; i < q.length; i++) {
+                    const s = q[i];
+                    if (s.name == to) {
+                        console.log(from + "Read " + read + " ; " + dir + " => " + to);
+                        q[index].δ.push(new Transition(read, dir == '+' ? right : left, s));
+                    }
+                }
+            }
+        }
+    });
+    machine_val.accept_states.split(' ').forEach(accept => {
+        for (let index = 0; index < states.length; index++) {
+            const state = states[index];
+            if (state == accept) {
+                F.push(q[index]);
+                break;
+            }
+        }
+    });
+
+    machine_val = {
+        states: [],
+        inputs: [],
+        transitions: [],
+        start_state: "",
+        accept_states: ""
+    }
 });
 
 textArea?.addEventListener('keyup', (e) => {
@@ -104,8 +143,8 @@ const initialiseImportTextFieldPanel = (fileInputId, textAreaId) => {
         reader.addEventListener('load', (event) => {
             target.value = event.target.result;
             target.style.height = textInitialHeight;
-            target.style.height = target.scrollHeight 
-                + parseFloat(getComputedStyle(target).paddingTop) 
+            target.style.height = target.scrollHeight
+                + parseFloat(getComputedStyle(target).paddingTop)
                 + parseFloat(getComputedStyle(target).paddingBottom) + 'px';
         });
         reader.readAsText(source);

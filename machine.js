@@ -1,20 +1,25 @@
+let q = []
+let F = []
+function State(name) {
+    this.name = name;
+    this.δ = [];
+}
+
+function Transition(read, direction, destination) {
+    this.read = read;
+    this.direction = direction
+    this.destination = destination;
+}
+const right = true, left = false;
 document.addEventListener("DOMContentLoaded", e => {
-    const q = []
-    const F = []
     let lEnd = '⋊', rEnd = '⋉';
-    const right = true, left = false;
     let lTouch = false, rTouch = false;
+    const submitBtn = document.querySelector('#submit');
+    // submitBtn?.addEventListener('click', (e) => {
+    //     q = [];
+    //     F = [];
+    // });
 
-    function State(name) {
-        this.name = name;
-        this.δ = [];
-    }
-
-    function Transition(read, direction, destination) {
-        this.read = read;
-        this.direction = direction
-        this.destination = destination;
-    }
 
     class Timeline {
         constructor(q_i, ω, head, path) {
@@ -92,32 +97,32 @@ document.addEventListener("DOMContentLoaded", e => {
         resetDisplayBG();
     }
 
-    q.push(
-        new State('q0'),
-        new State('q1'),
-        new State('q2'),
-        new State('q3'),
-        new State('q4*')
-    );
+    // q.push(
+    //     new State('q0'),
+    //     new State('q1'),
+    //     new State('q2'),
+    //     new State('q3'),
+    //     new State('q4*')
+    // );
 
-    F.push(q[4]);
+    // F.push(q[4]);
 
-    q[0].δ.push(
-        new Transition(lEnd, right, q[0]),
-        new Transition('A', right, q[0]),
-        new Transition('B', right, q[0]),
-        new Transition(rEnd, left, q[1])
-    );
+    // q[0].δ.push(
+    //     new Transition(lEnd, right, q[0]),
+    //     new Transition('A', right, q[0]),
+    //     new Transition('B', right, q[0]),
+    //     new Transition(rEnd, left, q[1])
+    // );
 
-    q[1].δ.push(
-        new Transition('A', left, q[2]),
-        new Transition('B', left, q[2])
-    );
+    // q[1].δ.push(
+    //     new Transition('A', left, q[2]),
+    //     new Transition('B', left, q[2])
+    // );
 
-    q[2].δ.push(
-        new Transition('A', left, q[4]),
-        new Transition('B', left, q[3])
-    );
+    // q[2].δ.push(
+    //     new Transition('A', left, q[4]),
+    //     new Transition('B', left, q[3])
+    // );
 
     async function fulltest(ω, q_i, log, delay, step) {
         const display = document.getElementById('input_display');
@@ -200,4 +205,10 @@ function resetDisplayBG() {
     });
 }
 
-const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+
+function clear() {
+    q.length = 0;
+    F.length = 0;
+    console.log("clear");
+}

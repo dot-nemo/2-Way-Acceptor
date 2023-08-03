@@ -25,17 +25,17 @@
             <button id="reset">Reset</buttonid>
         </div>
         <div id="input_display" style>
-            
+
         </div>
     </div>
 
     <div id="type-machine">
         <form id="writemachine" name="writemachine">
             <fieldset>
-                <label for="code-input">Input Machine Program</label>
+                <label for="code-input">Input Machine Program [Copy and Paste: ⋊⋉]</label>
                 <br>
-                <textarea name="code-input" id="code-input" style="white-space: pre-wrap;" 
-                placeholder="fix format&#10;2 /* number of states */ &#10;A B /* list of states*/ &#10;2 /* number of inputs */ &#10;0 1 /* list of inputs */ &#10;4 /* number of transitions */ &#10;A 0 A /* transitions in the format q s q' */ &#10;A 1 B /* such that f(q,s) = q' */ &#10;B 0 A &#10;B 1 B &#10;A /* start state */&#10;1 /* number of final states */&#10;B /* list of final states */"></textarea>
+                <textarea name="code-input" id="code-input" style="white-space: pre-wrap;"
+                placeholder="fix format&#10;2 /* number of states */ &#10;A B /* list of states*/ &#10;2 /* number of inputs */ &#10;0 1 /* list of inputs */ &#10;4 /* number of transitions */ &#10;A 0 A + /* transitions in the format q s q' d*/ &#10;A 1 B - /* such that f(q,s) = (q, d)' */ &#10;B 0 A - &#10;B 1 B + &#10;A /* start state */&#10;B /* list of final states */"></textarea>
                 <br><input type="submit" id="submit"/>
             </fieldset>
         </form>
