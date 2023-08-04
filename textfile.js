@@ -86,8 +86,8 @@ submitBtn?.addEventListener('click', (e) => {
             if (state == from) {
                 for (let i = 0; i < q.length; i++) {
                     const s = q[i];
+                    console.log(from + " Read " + read + " ; " + dir + " => " + to);
                     if (s.name == to) {
-                        console.log(from + "Read " + read + " ; " + dir + " => " + to);
                         q[index].δ.push(new Transition(read, dir == '+' ? right : left, s));
                     }
                 }
