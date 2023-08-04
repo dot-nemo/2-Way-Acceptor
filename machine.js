@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", e => {
         const accept = await fulltest(lEnd + input.value + rEnd, q[0], true, 250, 0);
         if (accept) {
             indisp.style.backgroundColor = 'hsl(127, 100%, 90%)'
+            document.getElementById('currstate').style.backgroundColor = 'hsl(127, 100%, 90%)'
         } else {
             indisp.style.backgroundColor = 'hsl(0, 100%, 90%)'
         }
