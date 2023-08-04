@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", e => {
                     } else if (δ.read == rEnd) {
                         rTouch = true;
                     }
-                } else if (δ.read == '') {
+                } else if (δ.read == 'λ') {
                     const path = `(λ) ; ${this.direction ? '+' : '-'} => ${δ.destination.name}`;
                     if (log) console.log('Lambda transition found: %s', path);
                     if (!(lTouch && rTouch && F.includes(this.q_i) && this.q_i.δ.length == 0))
@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", e => {
     const step = document.getElementById('step');
     const reset = document.getElementById('reset');
     run.onclick = async function() {
+        document.getElementById('currstate').innerHTML = '';
         reset.onclick();
         const indisp = document.getElementById('input_display');
         const accept = await fulltest(lEnd + input.value + rEnd, q[0], true, 250, 0);
@@ -75,12 +76,14 @@ document.addEventListener("DOMContentLoaded", e => {
 
     let stepCtr = 1;
     step.onclick = async function() {
+        document.getElementById('currstate').innerHTML = '';
         const indisp = document.getElementById('input_display');
         const accept = await fulltest(lEnd + input.value + rEnd, q[0], true, 250, stepCtr);
 
         if (accept != null) {
             if (accept) {
                 indisp.style.backgroundColor = 'hsl(127, 100%, 90%)'
+                document.getElementById('currstate').style.backgroundColor = 'hsl(127, 100%, 90%)'
             } else {
                 indisp.style.backgroundColor = 'hsl(0, 100%, 90%)'
             }
@@ -93,6 +96,7 @@ document.addEventListener("DOMContentLoaded", e => {
     }
 
     reset.onclick = function() {
+        document.getElementById('currstate').innerHTML = '';
         stepCtr = 1;
         resetDisplayBG();
     }
@@ -126,6 +130,7 @@ document.addEventListener("DOMContentLoaded", e => {
 
     async function fulltest(ω, q_i, log, delay, step) {
         const display = document.getElementById('input_display');
+        const currstate = document.getElementById('currstate');
         display.innerHTML = '';
         for (let i = 0; i < ω.length; i++) {
             const c = ω[i];
@@ -163,11 +168,11 @@ document.addEventListener("DOMContentLoaded", e => {
             for (let i = tls.length - 1; i >= 0; i--) {
                 const tl = tls[i];
                 const color = Math.round(multi*i);
-                if (tl.head < ω.length) {
-                    const disp = document.getElementById(`disp_${tl.head}`)
-                    if (step == 0) await sleepNow(50)
-                    disp.style.backgroundColor = `hsl(${color%256}, 100%, 90%)`;
-                }
+                const disp = document.getElementById(`disp_${tl.head}`)
+                if (step == 0) await sleepNow(50)
+                disp.style.backgroundColor = `hsl(${color%256}, 100%, 90%)`;
+                currstate.innerHTML = tl.q_i.name;
+                currstate.style.backgroundColor = `hsl(${color%256}, 100%, 90%)`;
             }
 
             if (newTLs.length == 0) {
@@ -203,6 +208,7 @@ function resetDisplayBG() {
     displays.forEach(disp => {
         disp.style.backgroundColor = '';
     });
+    document.getElementById('currstate').style.backgroundColor = '';
 }
 
 const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
