@@ -1,3 +1,9 @@
+/**
+    Group Members:
+    DESUCATAN, Cristan
+    REBANO, Jaeme
+    YU, Steven
+ */
 let q = []
 let F = []
 function State(name) {

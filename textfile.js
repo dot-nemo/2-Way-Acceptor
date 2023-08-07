@@ -1,3 +1,9 @@
+/**
+    Group Members:
+    DESUCATAN, Cristan
+    REBANO, Jaeme
+    YU, Steven
+ */
 const submitBtn = document.querySelector('#submit');
 const textArea = document.querySelector('#code-input');
 
